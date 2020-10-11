@@ -1,0 +1,4 @@
+---
+- name: Build the image
+  import_tasks: dockerBuild.yml
+  when: IMAGE_BUILD

@@ -1,0 +1,9 @@
+---
+- name: Get source code from Github
+  import_tasks: getSourceCode.yml
+
+- name: Get EAP package from Repository
+  import_tasks: getEAPPackage.yml
+  
+- name: Get APP artifact from Repository
+  import_tasks: getAppArtifact.yml

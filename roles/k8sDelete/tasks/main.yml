@@ -1,0 +1,8 @@
+---
+- name: Delete the deployment object
+  import_tasks: deleteDeployment.yml
+  when: deployment
+
+- name: Delete the service object
+  import_tasks: deleteService.yml
+  when: service

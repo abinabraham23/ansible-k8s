@@ -1,0 +1,17 @@
+---
+- name: Create a directory for source code checkout if it does not exist
+  file:
+    path: '{{ DEST_PATH }}'
+    state: directory
+    mode: '0755'
+
+- name: Source checkout from Github
+  git:
+    repo: '{{ GIT_REPO }}'
+    dest: '{{ DEST_PATH }}'
+
+- name: Ensure the repo checkout correctly
+  git:
+    repo: '{{ GIT_REPO }}'
+    dest: '{{ DEST_PATH }}'
+    update: no

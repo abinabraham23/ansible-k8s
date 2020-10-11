@@ -1,0 +1,26 @@
+---
+- name: Create a Deployment for EAP 72.
+  k8s:
+    state: present
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: "{{ app_name }}"
+        namespace: "{{ nsnm }}"
+      spec:
+        replicas: "{{ replicas }}"
+        selector:
+          matchLabels:
+            app: "{{ app_name }}"
+        template:
+          metadata:
+            labels:
+              app: "{{ app_name }}"
+          spec:
+            containers:
+              - name: "{{ app_name }}"
+                image: "{{ image_name }}:{{ image_tag }}"
+                imagePullPolicy: IfNotPresent
+                ports:
+                  - containerPort: 8080

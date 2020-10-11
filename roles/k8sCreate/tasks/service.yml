@@ -1,0 +1,16 @@
+---
+- name: Create a Service for EAP 72.
+  k8s:
+    state: present
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        name: "{{ app_name }}"
+        namespace: "{{ nsnm }}"
+      spec:
+        type: LoadBalancer
+        ports:
+          - port: 8080
+        selector:
+          app: "{{ app_name }}"

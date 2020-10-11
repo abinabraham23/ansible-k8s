@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  vars:
+    IMAGE_BUILD: true
+    ALLOW_REBUILD_IMAGE: true
+    GIT_REPO: https://github.com/abinabraham23/chatter-websocket.git
+    DEST_PATH: /home/abinabraham/ansible-learning/buildPrep/
+    BUILD_DIR: build
+    EAP_ARTIFACT_DIR: /home/abinabraham/ansible-learning/ChatterApp
+    EAP_ARTIFACT_NAME: jboss-eap-7.2.0.zip
+    APP_ARTIFACT_DIR: /home/abinabraham/ansible-learning/ChatterApp
+    APP_ARTIFACT_NAME: ROOT.war
+    IMAGE_NAME: eap72-test
+    IMAGE_TAG: latest
+
+  roles:
+    - role: imageBuildPrep
+      tags: buildPrep
+      
+    - role: imageBuildExec
+      tags: buildExec

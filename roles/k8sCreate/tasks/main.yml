@@ -1,0 +1,12 @@
+---
+- name: Create the namespace in kubernetes
+  import_tasks: createNamespace.yml
+  when: namespace
+
+- name: Create the deployment object
+  import_tasks: deployment.yml
+  when: deployment
+
+- name: Create a service object
+  import_tasks: service.yml
+  when: service

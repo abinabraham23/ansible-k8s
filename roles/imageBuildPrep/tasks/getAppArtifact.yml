@@ -1,0 +1,19 @@
+---    
+- name: Check if App artifact already exists in Build directory
+  stat:
+    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/{{ APP_ARTIFACT_NAME }}'
+  register: app_artifact_result
+
+- name: Remove existing artifact
+  file:
+    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/{{ APP_ARTIFACT_NAME }}'
+    state: absent
+  when: app_artifact_result.stat.exists
+
+- name: Get the App Artifact to Build Directory
+  copy:
+    src: '{{ APP_ARTIFACT_DIR }}/{{ APP_ARTIFACT_NAME }}'
+    dest: '{{ DEST_PATH }}/{{ BUILD_DIR }}/{{ APP_ARTIFACT_NAME }}'
+    owner: abinabraham
+    group: abinabraham
+    mode: a+rx

@@ -1,0 +1,13 @@
+---   
+# Check for existing images in registry
+- name: Check if the image already exists and get existing image hash if present.
+  shell: |
+    docker images -q {{ IMAGE_NAME }}
+  register: image_hash
+  #changed_when: false
+
+# Build if image not found or rebuild flag is set true
+- name: Build image if it's not already built or rebuild is allowed.
+  shell: |
+    docker build -t {{ IMAGE_NAME }}:{{ IMAGE_TAG }} {{ DEST_PATH }}/{{ BUILD_DIR }}
+  when: not image_hash.stdout or ALLOW_REBUILD_IMAGE

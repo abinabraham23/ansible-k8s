@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  vars:
+    nsnm: 'my-demo-ns'
+    image_name: 'abin23abraham/mytestregistry'
+    image_tag: 'eap-test'
+    replicas: 1
+    app_name: 'eap72'
+    createResources: false
+    deleteResources: true
+    namespace: true
+    deployment: true
+    service: true
+
+  roles:
+    - role: k8sCreate
+      tags: k8sCreateObjects
+      when: createResources
+
+    - role: k8sDelete
+      tags: k8sDeleteObjects
+      when: deleteResources
