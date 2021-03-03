@@ -4,6 +4,12 @@
 
 - name: Get EAP package from Repository
   import_tasks: getEAPPackage.yml
-  
+
+- name: Get EAP Patch artifact from Repository
+  import_tasks: getEAPPatch.yml
+
 - name: Get APP artifact from Repository
   import_tasks: getAppArtifact.yml
+
+- name: Get Module from Repository
+  import_tasks: getModules.yml

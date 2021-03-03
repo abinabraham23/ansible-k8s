@@ -1,21 +1,34 @@
 ---
 - hosts: localhost
+  gather_facts: false
+
   vars:
     IMAGE_BUILD: true
     ALLOW_REBUILD_IMAGE: true
     GIT_REPO: https://github.com/abinabraham23/chatter-websocket.git
-    DEST_PATH: /home/abinabraham/ansible-learning/buildPrep/
+    GIT_BRANCH: new-feature
+    DEST_PATH: /home/paul/ansible/ansible-k8s/build-test/
     BUILD_DIR: build
-    EAP_ARTIFACT_DIR: /home/abinabraham/ansible-learning/ChatterApp
+    EAP_ARTIFACT_DIR: /home/paul/ansible/jboss-testing/chatter-websocket/build/artifacts
     EAP_ARTIFACT_NAME: jboss-eap-7.2.0.zip
-    APP_ARTIFACT_DIR: /home/abinabraham/ansible-learning/ChatterApp
+    EAP_PATCH_DIR: /home/paul/ansible/jboss-testing/chatter-websocket/build/artifacts
+    EAP_PATCH_NAME: jboss-eap-7.2.9-patch.zip
+    APP_ARTIFACT_DIR: /home/paul/ansible/ansible-learning/ChatterApp
     APP_ARTIFACT_NAME: ROOT.war
+    MODULE_DIR: /home/paul/ansible/jboss-testing/chatter-websocket/build/modules
+    MODULE_NAME: mysql-connector-java-8.0.22.jar
+    LOCAL_REGISTRY_URL: localhost:5000
     IMAGE_NAME: eap72-test
     IMAGE_TAG: latest
+    OWNER: paul
+    GROUP: paul
 
   roles:
     - role: imageBuildPrep
       tags: buildPrep
-      
+    
+    - role: configJBoss
+      tags: configJBoss
+
     - role: imageBuildExec
       tags: buildExec

@@ -1,0 +1,3 @@
+- name: Create the configMap for Java Options
+  import_tasks: createConfigMap.yml
+  when: configMap

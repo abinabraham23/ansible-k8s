@@ -20,7 +20,20 @@
           spec:
             containers:
               - name: "{{ app_name }}"
-                image: "{{ image_name }}:{{ image_tag }}"
-                imagePullPolicy: IfNotPresent
+                #image: "{{ image_name }}:{{ image_tag }}"
+                image: "{{ local_registry_url }}/{{ image_name }}"
+                imagePullPolicy: Always
+                env:
+                  - name: JAVA_OPTS
+                    valueFrom:
+                      configMapKeyRef:
+                        name: "{{ cm_name }}"
+                        key: "{{ cm_key }}"
+                resources:
+                  requests:
+                    memory: "{{ resource_mem_request }}"
+                  limits:
+                    memory: "{{ resource_mem_limit }}"
                 ports:
                   - containerPort: 8080
+                

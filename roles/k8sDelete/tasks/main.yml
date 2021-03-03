@@ -6,3 +6,8 @@
 - name: Delete the service object
   import_tasks: deleteService.yml
   when: service
+
+- name: Delete the ingress object
+  import_tasks: deleteIngress.yml
+  when: ingress
+

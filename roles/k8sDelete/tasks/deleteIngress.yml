@@ -1,0 +1,10 @@
+---
+- name: Delete the Ingress object.
+  k8s:
+    state: absent
+    definition:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: "{{ app_name }}-ing"
+        namespace: "{{ nsnm }}"

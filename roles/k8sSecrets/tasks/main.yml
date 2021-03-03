@@ -1,0 +1,4 @@
+---
+- name: Create the Secrets for Kubernetes
+  import_tasks: createSecrets.yml
+  when: secrets

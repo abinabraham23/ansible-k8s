@@ -1,19 +1,19 @@
 ---
 - name: Check if EAP package already exists in Build directory
   stat:
-    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/{{ EAP_ARTIFACT_NAME }}'
+    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/artifact/{{ EAP_ARTIFACT_NAME }}'
   register: eap_package_result
 
 - name: Remove existing package
   file:
-    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/{{ EAP_ARTIFACT_NAME }}'
+    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/artifact/{{ EAP_ARTIFACT_NAME }}'
     state: absent
   when: eap_package_result.stat.exists
 
 - name: Get the JBoss EAP package to build Directory
   copy:
     src: '{{ EAP_ARTIFACT_DIR }}/{{ EAP_ARTIFACT_NAME }}'
-    dest: '{{ DEST_PATH }}/{{ BUILD_DIR }}/{{ EAP_ARTIFACT_NAME }}'
-    owner: abinabraham
-    group: abinabraham
+    dest: '{{ DEST_PATH }}/{{ BUILD_DIR }}/artifact/{{ EAP_ARTIFACT_NAME }}'
+    owner: '{{ OWNER }}'
+    group: '{{ GROUP }}'
     mode: a+rx

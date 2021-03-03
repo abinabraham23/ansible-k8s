@@ -1,0 +1,31 @@
+---
+sys_properties: 
+  key1: 'val1'
+  key2: 'val2'
+  key3: 'val3'
+  key4: 'val4'
+driver:
+  driver_name: 'mysql'
+  module_name: 'com.mysql'
+  xa_ds_class_name: 'com.mysql.jdbc.jdbc2.optional.MysqlXADataSource'
+  driver_class_name: 'com.mysql.jdbc.Driver'
+datasources:
+  ds_name: 'ExampleDS2'
+  ds_jndi_name: 'java:jboss/datasources/ExampleDS2'
+  ds_connection_uri: 'uri://something'
+  ds_user: 'user1'
+  ds_pass: 'pass1'
+jms_queue:
+  queue1:
+    queue_name: 'testqueue1'
+    queue_entries: 'java:/jms/queue/testqueue1'
+  queue2:
+    queue_name: 'testqueue2'
+    queue_entries: 'java:/jms/queue/testqueue2'  
+jms_topic:
+  topic1: 
+    topic_name: 'testtopic1'
+    topic_entries: 'java:/jms/queue/testtopic1'
+  topic2: 
+    topic_name: 'testtopic2'
+    topic_entries: 'java:/jms/queue/testtopic2'

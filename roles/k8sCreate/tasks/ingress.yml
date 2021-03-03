@@ -1,0 +1,29 @@
+# Enable NGINX ingress controller in Minikube before adding the Ingress resource
+# minikube addons enable ingress
+
+# Also, add the host in /etc/hosts
+
+---
+- name: Create a Ingress resource for EAP 72.
+  k8s:
+    state: present
+    definition:
+      apiVersion: networking.k8s.io/v1
+      kind: Ingress
+      metadata:
+        name: "{{ app_name }}-ing"
+        namespace: "{{ nsnm }}"
+        annotations:
+          nginx.ingress.kubernetes.io/rewrite-target: /$1
+      spec:
+        rules:
+          - host: "{{ ingress_host }}"
+            http:
+              paths:
+                - path: /
+                  pathType: Prefix
+                  backend:
+                    service:
+                      name: "{{ app_name }}"
+                      port:
+                        number: 8080

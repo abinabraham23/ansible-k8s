@@ -1,0 +1,19 @@
+---
+- name: Check if Module already exists in Build directory
+  stat:
+    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/modules/{{ MODULE_NAME }}'
+  register: module_result
+
+- name: Remove existing module
+  file:
+    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/modules/{{ MODULE_NAME }}'
+    state: absent
+  when: module_result.stat.exists
+
+- name: Get the Module to build Directory
+  copy:
+    src: '{{ MODULE_DIR }}/{{ MODULE_NAME }}'
+    dest: '{{ DEST_PATH }}/{{ BUILD_DIR }}/modules/{{ MODULE_NAME }}'
+    owner: '{{ OWNER }}'
+    group: '{{ GROUP }}'
+    mode: a+rx

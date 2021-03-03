@@ -1,0 +1,19 @@
+---
+- name: Check if EAP patch already exists in Build directory
+  stat:
+    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/artifact/{{ EAP_PATCH_NAME }}'
+  register: eap_patch_result
+
+- name: Remove existing package
+  file:
+    path: '{{ DEST_PATH }}/{{ BUILD_DIR }}/artifact/{{ EAP_PATCH_NAME }}'
+    state: absent
+  when: eap_patch_result.stat.exists
+
+- name: Get the JBoss EAP patch to build Directory
+  copy:
+    src: '{{ EAP_PATCH_DIR }}/{{ EAP_PATCH_NAME }}'
+    dest: '{{ DEST_PATH }}/{{ BUILD_DIR }}/artifact/{{ EAP_PATCH_NAME }}'
+    owner: '{{ OWNER }}'
+    group: '{{ GROUP }}'
+    mode: a+rx

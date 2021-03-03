@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  vars:
+    nsnm: 'default'
+    java_opts: "-Xms250m -Xmx250m -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -Djava.net.preferIPv4Stack=true"
+    cm_name: 'eap72-java-opts'
+    configMap: true
+    secrets: false
+
+  roles:
+    - role: k8sConfigMap
+      tags: k8sConfigMap
+      when: configMap
+      
+
+    - role: k8sSecrets
+      tags: k8sSecrets
+      when: secrets

@@ -1,10 +1,10 @@
 ---
-- name: Check if deployment object present 
-  command: kubectl get deployment {{ app_name }} -n {{ nsnm }} -o name
-  register: deployment_name
-  changed_when: false
-  ignore_errors: true
-# Otherwise will start minikube
-- name: Delete the deployment object if found.
-  command: kubectl delete deployment {{ app_name }} -n {{ nsnm }}
-  when: 'deployment_name.stdout'
+- name: Delete Deployment object.
+  k8s:
+    state: absent
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: "{{ app_name }}"
+        namespace: "{{ nsnm }}"

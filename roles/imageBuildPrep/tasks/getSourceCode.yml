@@ -9,9 +9,11 @@
   git:
     repo: '{{ GIT_REPO }}'
     dest: '{{ DEST_PATH }}'
+    version: '{{ GIT_BRANCH }}'
 
 - name: Ensure the repo checkout correctly
   git:
     repo: '{{ GIT_REPO }}'
     dest: '{{ DEST_PATH }}'
+    version: '{{ GIT_BRANCH }}'
     update: no

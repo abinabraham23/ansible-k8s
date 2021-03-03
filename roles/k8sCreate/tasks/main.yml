@@ -1,6 +1,10 @@
 ---
+# - name: Set the minikube docker env.
+#   shell: |
+#     eval $(minikube docker-env)
+
 - name: Create the namespace in kubernetes
-  import_tasks: createNamespace.yml
+  import_tasks: namespace.yml
   when: namespace
 
 - name: Create the deployment object
@@ -10,3 +14,7 @@
 - name: Create a service object
   import_tasks: service.yml
   when: service
+
+- name: Create a Ingress object
+  import_tasks: ingress.yml
+  when: ingress

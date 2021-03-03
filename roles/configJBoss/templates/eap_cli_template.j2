@@ -1,0 +1,48 @@
+# Add the system properties
+batch
+{% if (sys_properties) %}
+{% for key, value in sys_properties.items() %}
+/system-property={{ key }}:add(value="{{ value }}")
+{% endfor %}
+{% endif %}
+run-batch
+
+# Register the JDBC driver
+batch
+{% if (driver) %}
+/subsystem=datasources/jdbc-driver={{ driver.driver_name }}:add(driver-name={{ driver.driver_name }},driver-module-name={{ driver.module_name }},driver-xa-datasource-class-name={{ driver.xa_ds_class_name }},driver-class-name={{ driver.driver_class_name }})
+{% endif %}
+run-batch
+
+# Add the datasource configuration
+batch
+{% if (datasources) %}
+data-source add --name={{ datasources.ds_name }} --jndi-name={{ datasources.ds_jndi_name }} --driver-name={{ driver.driver_name }}  --connection-url={{ driver.driver_name }}
+{% if (datasources.ds_user)  %}
+/subsystem=datasources/data-source=ExampleDS2:write-attribute(name=user-name,value="{{ datasources.ds_user }}")
+{% endif %}
+{% if (datasources.ds_pass)  %}
+/subsystem=datasources/data-source=ExampleDS2:write-attribute(name=password,value="{{ datasources.ds_pass }}")
+{% endif %}
+{% endif %}
+run-batch
+
+# Add JMS Queue
+batch
+{% if (jms_queue) %}
+{% for item in jms_queue %}
+jms-queue add --queue-address={{ jms_queue[item].queue_name }} --entries={{ jms_queue[item].queue_entries }}
+{% endfor %}
+{% endif %}
+run-batch
+
+# Add JMS Topic
+batch
+{% if (jms_topic) %}
+{% for item in jms_topic %}
+jms-topic add --topic-address={{ jms_topic[item].topic_name }} --entries={{ jms_topic[item].topic_entries }}
+{% endfor %}
+{% endif %}
+run-batch
+
+exit
